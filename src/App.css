@@ -1,0 +1,344 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body{
+    margin: 0;
+    padding: 0;
+}
+*{
+    /* border: 1px solid; */
+    box-sizing: border-box;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+#root{
+    background-color: black;
+    margin: 0px;
+    position: relative;
+    
+}
+.Contenedor{
+    background-image: url(https://github.githubassets.com/images/modules/site/home-campaign/hero-bg.webp);
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: top center; 
+    position: relative;
+}
+.Contenedor .DronImage{
+    position: absolute;
+    top: 19%;
+    right: 5%;
+    
+    animation: myAnim 10s ease 0s infinite alternate-reverse forwards;
+}
+/* Animacion del Dron  */
+@keyframes myAnim {
+	0% {
+		transform: translate(0);
+	}
+
+	20% {
+		transform: translate(-2px, 2px);
+	}
+
+	40% {
+		transform: translate(-2px, -2px);
+	}
+
+	60% {
+		transform: translate(2px, 2px);
+	}
+
+	80% {
+		transform: translate(2px, -2px);
+	}
+
+	100% {
+		transform: translate(0);
+	}
+
+}
+header{
+    width: 100%;
+    
+}
+
+
+
+
+/* Estilos Generales de NavbarProducts  */
+.dropdown-btn i{
+    padding: 2px;
+    transform: translate(0, 0); 
+    transition: transform 0.3s; 
+}
+.dropdown-btn:hover i{
+    transform: translate(0px, 2px);
+}
+
+.NavLogo img{
+    width: 30%;
+    filter: invert(100%);
+}
+
+
+
+
+/* Css NavbarSolutions */
+
+
+.dropdown-btn-Solutions i{
+    transform: translate(0, 0); 
+    transition: transform 0.3s; 
+}
+.dropdown-btn-Solutions:hover i{
+    transform: translate(0px, 2px);
+}
+
+/* Estilos CSS OpenSource */
+
+
+.dropdown-btn-OpenSource i{
+    transform: translate(0, 0); 
+    transition: transform 0.3s; 
+}
+.dropdown-btn-OpenSource:hover i{
+    transform: translate(0px, 2px);
+}
+/* Estilos Botones Inicio y Creacion De Cuenta  GitHub*/
+header nav .NavSecciones{
+    
+    display: flex;
+   
+    gap: 10px;
+}
+
+header nav .NavSecciones .SingIn button,
+header nav .NavSecciones .SingUp button{
+    background: transparent;
+    border: none;
+    
+}
+header nav .NavSecciones .SingIn button a{
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+header nav .NavSecciones .SingUp button a{
+    color: #fff;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.Hamburguer{
+    color: #fff;
+    display: none;
+}
+/* Estilos Formulario SingIn */
+.ContenedorForm h2{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* Estilos Formularios SingUp */
+.ContenedorFormSingUp form h2{
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #8193b2;
+    
+}
+.ContenedorFormSingUp .LogoSingUp img{
+    filter: invert(100%);
+    position: absolute;
+    
+    left: 2%;
+    top: 1%;
+    
+}
+.ContenedorFormSingUp{
+    position: relative;
+    min-height: 100vh;
+    font-family: 'Roboto Condensed', sans-serif;
+    
+}
+
+.ContenedorFormSingUp form label{
+    color:#00cfc8;
+}
+.ContenedorFormSingUp .GoSingInPage {
+    position: absolute;
+    right: 3%;
+    color: #a1a7b0bc;
+    font-family: 'Roboto Condensed', sans-serif;
+    
+}
+.ContenedorFormSingUp .GoSingInPage .GoSingInOption{
+    color: white;
+}
+.ContenedorForm{
+
+    background: rgba(178, 170, 170, 0.04);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.1px);
+    -webkit-backdrop-filter: blur(4.1px);
+    border: 1px solid rgba(178, 170, 170, 0.49);
+}
+.typewriter-text {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 auto;     
+    font-size: 24px;    
+  }
+  
+  .typewriter-text span {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+   
+    animation: typing 3s steps(40, end) forwards, blink-caret 0.5s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink-caret {
+    from, to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #000;
+    }
+  }
+  
+/* Estilos para las estrellas */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1; 
+  }
+  
+  .star {
+    position: absolute;
+    width: 4px; 
+    height: 4px; 
+    background-color: #fff; 
+    border-radius: 50%;
+    animation: twinkle 2s infinite, moveStars 10s linear infinite;
+  }
+  
+  /* Animación de destello de estrellas */
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+  }
+  
+  /* Animación de movimiento de estrellas */
+  @keyframes moveStars {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100vh); 
+    }
+  }
+  
+/* Css de Hamburguer */
+.cerrarIcon:hover {
+background: gray;
+}
+.menuScroll{
+    overflow-y: scroll;
+}
+#slide-in{
+    animation: slideIn-x 0.3s ease-in-out;
+}
+#slide-in:hover{
+    background-color: rgba(128, 128, 128, 0.096);
+    border-radius: 5px;
+}
+.slide-in {
+    animation: slideIn 0.2s ease-in-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideIn-x {
+    from {
+      transform: translateX(-180%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+
+.logoHeaderProfile{
+    max-width: 30px;
+    min-width: 10px;
+    
+    
+}
+.derechosHamburguer p{
+    font-size: 10px;
+    color: gray;
+}
+.footerHamburguer ul{
+    display: flex;
+    gap: 3px;
+
+}
+.footerHamburguer ul li a{
+    font-size: 10px;
+    color: rgba(0, 0, 255, 0.664);
+}
+
+/* Estilos Buscador del HomeProfile*/
+
+
+
+@media only screen and (max-width:780px) {
+
+    /* configuraciones Homeprofile */
+    
+    .cerrarIcon{
+        left: 30%;
+        position: absolute;
+        z-index: 10;
+        
+    }
+    
+   
+    .overlay{
+        width: 100%;
+    }
+}
+
