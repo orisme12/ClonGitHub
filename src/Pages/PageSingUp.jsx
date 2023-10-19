@@ -12,13 +12,13 @@ export function PageSingUp() {
   let url = "https://api.github.com/users";
 
   const handleSubmit = async (event) => {
-    console.log(usergithub);
+    // console.log(usergithub);
     event.preventDefault();
     singUp(email, password);
 
     const response = await fetch(`${url}/${usergithub}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
   };
  
   return (

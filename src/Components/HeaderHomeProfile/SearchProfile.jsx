@@ -10,19 +10,19 @@ export default function SearchProfile() {
     e.preventDefault();
     setError('');
 
-    // Validar que la entrada no esté vacía o contenga solo espacios en blanco
+    
     if (search.trim() === '') {
       setError('');
       return; 
     }
 
-    console.log('enviando');
+    // console.log('enviando');
 
     try {
       await searchUserGitHub(search);
     } catch (error) {
       setError('Se produjo un error al buscar el usuario.');
-      console.log(error) // Manejar errores de la solicitud
+      console.log(error) 
     }
   };
 
@@ -37,7 +37,7 @@ export default function SearchProfile() {
           placeholder='Ingrese un usuario GitHub'
         />
       </form>
-      {error && <p className="text-red-500 text-xs">{error}</p>}
+      
     </div>
   );
 }

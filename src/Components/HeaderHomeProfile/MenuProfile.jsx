@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useAuth } from "../../Context/AuthContext";
 import { GrFormClose, GrUpgrade } from "react-icons/gr";
 import { Link } from "react-router-dom";
@@ -17,11 +17,17 @@ export function MenuProfile() {
   const [open, setOpen] = useState(false);
   const { user,logout } = useAuth();
   
-
   const openMenu = () => {
     setOpen(!open);
+    
   };
 
+  const closeMenu = () => {
+    setOpen(false);
+   
+  };
+
+  
   return (
     <>
       <div onClick={openMenu}>
@@ -35,7 +41,8 @@ export function MenuProfile() {
         />
       </div>
       {open && (
-        <div className="fixed w-full h-full bg-gray-500 bg-opacity-[0.085] right-0 top-0 z-[10] ">
+        <div className="fixed w-full h-full bg-gray-500 bg-opacity-[0.085] right-0 top-0 z-[10] " >
+          
           <div className="absolute bg-white w-[250px] h-[100vh]  rounded-s-[8px] right-0 z-10">
             <div className="flex p-2 items-center w-full relative">
               <img
@@ -49,11 +56,11 @@ export function MenuProfile() {
               <p className="text-xs px-1">{user.email}</p>
               <GrFormClose
                 className="absolute right-3 rounded  hover:bg-gray-100 opacity-50 h-6 w-7 p-px"
-                onClick={openMenu}
+                onClick={closeMenu}
               />
             </div>
             <div>
-            <ul className="px-2 overflow-y-scroll h-[30.9rem]">
+            <ul className="px-2 overflow-y-scroll h-[35.9rem] lg:h-[33.9rem]">
               <li className="flex items-center gap-1 text-[0.8rem] p-2  hover:bg-gray-50">
                 <LiaSmile/>
                 <Link to="/homeprofile">Set status</Link>
@@ -86,7 +93,7 @@ export function MenuProfile() {
               </li>
               <li className="flex items-center gap-1  text-[0.8rem] p-2 hover:bg-gray-50">
                 <AiOutlineStar/>
-                <Link to="/homeprofile">Your stars</Link>
+                <Link to="/homefavorite">Your stars</Link>
               </li>
               <li className="flex items-center gap-1  text-[0.8rem] p-2 hover:bg-gray-50">
                 <SiGithubsponsors/>

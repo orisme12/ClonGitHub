@@ -121,22 +121,22 @@ export function Hamburguer() {
                   <div className="footerHamburguer  p-2 ">
                     <ul className="">
                       <li className="text-xs">
-                        <Link to="/homepage">About</Link>
+                        <Link to="">About</Link>
                       </li>
                       <li className="text-xs">
-                        <Link to="/homepage">Blog</Link>
+                        <Link to="">Blog</Link>
                       </li>
                       <li className="text-xs">
-                        <Link to="/homepage">Terms</Link>
+                        <Link to="">Terms</Link>
                       </li>
                       <li className="text-xs">
-                        <Link to="/homepage">Privacy</Link>
+                        <Link to="">Privacy</Link>
                       </li>
                       <li className="text-xs">
-                        <Link to="/homepage">Security</Link>
+                        <Link to="">Security</Link>
                       </li>
                       <li className="text-xs">
-                        <Link to="/homepage">Status</Link>
+                        <Link to="">Status</Link>
                       </li>
                     </ul>
                   </div>

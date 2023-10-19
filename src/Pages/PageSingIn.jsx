@@ -2,19 +2,19 @@ import { Link } from "react-router-dom";
 import LogoGithub from "../assets/githubLogo.svg";
 import { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
-import { Animacion } from "../Components/animacion/animacion";
+import { Animacion } from "../Components/animacion/Animacion";
 
 export function PageSingIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { singIn, emailused, singInWithGoogle, fetchGitHub } = useAuth();
+  const { singIn,emailusedsingup } = useAuth();
   const [usergithub, setUserNameGitHub] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     singIn(email, password);
-    console.log("iniciando sesion");
-    fetchGitHub(usergithub);
+    // console.log("iniciando sesion");
+    // fetchGitHub(usergithub);
   };
 
   return (
@@ -89,17 +89,10 @@ export function PageSingIn() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                
-                <p className="text-white">{emailused}</p>
+                <p className="text-white">{emailusedsingup}</p>
               </div>
               <div>
-                {/* <input
-                  type="text"
-                  placeholder="Ingrese su usuario en GitHub"
-                  required
-                  className="w-full flex justify-center placeholder:text-center py-2 border border-gray-300 rounded-[5px] text-center text-gray-600"
-                  onChange={(e) => setUserNameGitHub(e.target.value)}
-                /> */}
+                
               </div>
               <div>
                 <button

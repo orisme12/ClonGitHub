@@ -9,22 +9,47 @@ import { Pullrequest } from "../Components/HeaderHomeProfile/Pullrequest";
 import { NotificationsProfile } from "../Components/HeaderHomeProfile/NotificationsProfile";
 import { MenuProfile } from "../Components/HeaderHomeProfile/MenuProfile";
 import { Animacion } from "../Components/animacion/animacion";
+import LogoGithub from "../assets/githubLogo.svg"
+import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
+import { db } from "../Config/Firebase";
+import { AiOutlineStar } from "react-icons/ai";
+import { useState } from "react";
 
 export default function HomeProfile() {
+
+  const [favoritos, setFavoritos] = useState([]);
   const {
     datausergithub,
     datarepositories,
     searchusersrepositories,
     searchusers,
     searchactive,
+    user
   } = useAuth();
-  // console.log(datausergithub);
-  // console.log(datarepositories);
-  // console.log(searchusersrepositories)
   
+  const guardarRepositorio = async(autor,nombreRepositorio,urlRepositorio,description,visibilidad,lenguaje) =>{
+   const guardar = {
+    nombreAutor: autor,
+    nombreRepositorio : nombreRepositorio,
+    urlRepositorio: urlRepositorio,
+    description: description,
+    visibilidad: visibilidad,
+    lenguaje : lenguaje
+   }
+   try {
+    await addDoc(collection(db,user.email),{
+      ...guardar
+    });
+    setFavoritos([...favoritos, guardar]);
+   } catch (error) {
+    console.log(error)
+   }
   
+  }
 
-  
+  const esFavorito = (repositorio) => {
+    return favoritos.some((fav) => fav.urlRepositorio === repositorio.clone_url);
+  };
 
   
   return (
@@ -59,40 +84,45 @@ export default function HomeProfile() {
           </div>
         </div>
       </div>
-      <main className="w-[100%] relative flex flex-wrap justify-center h-[100vh]">
+      <main className=" relative flex flex-wrap justify-center h-[100vh]">
        
-        <div className="bg-[#021c3f] w-[100%] relative  flex flex-wrap justify-center md:justify-end px-5  gap-2 ">
+        <div className="bg-white w-[100%] relative  flex flex-wrap justify-center md:justify-end px-5  gap-2 py-2 ">
 
         {searchactive ? (
-            <div className="w-full flex flex-wrap justify-center flex-col items-center">
+            <div className="w-full flex flex-wrap justify-center items-center flex-col md:flex-row md:w-[60%] md:justify-start lg:w-[75%] ">
              
               
               {Array.isArray(searchusersrepositories) && searchusersrepositories.length > 0 ? (
                 searchusersrepositories.map((data, key) => (
                   <>
                    {key === 0 && (
-                     <div className="flex items-center gap-2 mt-3">
-                        <img src={data.owner.avatar_url} alt="" className="w-[100px] rounded-[50%]" />
-                        <p className="text-white border-b border-blue-700  hover:shadow-lg  hover:text-gray-500 hover:border-blue-900 transition duration-300 ease-in-out">{data.owner.login}</p>
+                     <div className="  mt-3 md:absolute md:top-0 md:left-14 ">
+                        <img src={data.owner.avatar_url} alt="" className="w-[200px] md:w-[250px] rounded-[50%] border-[2px] border-gray-400" />
+                        <p className="text-gray-500 text-[16px] ">{data.owner.login}</p>
+                        <button className="border w-full mt-2 mb-10 border-gray-400 text-gray-800 rounded bg-gray-100">Edit profile</button>
 
                      </div>
                       
 
                     )}
-                  <div className="rounded w-[300px] h-[150px] md:w-[300px] mt-4 mb-2 border border-gray-300 px-5 md:px-5 relative lg:w-[55%] hover:bg-blue-950 md:hover:bg-blue-950" key={key}>
+                  <div className=" w-[300px] h-[150px] md:w-[100%] mt-3 mb-2  px-5 md:px-5 relative hover:bg-gray-200 hover:rounded-lg" key={key}>
                  
                     
-                    <div className="flex justify-between mt-1">
-                    <Link  to={data.clone_url} target="_blank" className="text-blue-400 hover:border-b hover:border-white "><h6 className="text-[14px]" >{data.full_name}</h6></Link>
-                    <p className="border rounded-md px-1 py-0 text-white text-xs flex items-center h-[20px] hover:bg-slate-500">{data.visibility}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs mb-4 mt-2 text-white">{data.description}</p>
-                  </div>
-                  <div className="absolute bottom-1  mt-2 flex items-center gap-1">
-                    <p className=" text-xs text-[gold]">{data.language}</p>
-                  </div>
-                 
+                    <div className="flex  gap-2 mt-1">
+                    <Link  to={data.clone_url} target="_blank" className="text-blue-700 hover:border-b hover:border-white "><h6 className="text-lg" >{data.full_name}</h6></Link>
+                    <p className="border border-gray-300 rounded-2xl px-2 py-0 text-gray-800 text-xs flex items-center h-[20px] font-medium">{data.visibility}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm mb-4 mt-2 text-gray-600">{data.description}</p>
+                    </div>
+                    <div className="  mb-1 mt-2 flex items-center gap-1">
+                      <p className=" mb-1 text-sm text-[gold]">{data.language}</p>
+                    </div>
+                    <div className="flex gap-1 items-center absolute top-1 right-2">
+                      <button className="" onClick={()=>guardarRepositorio(data.owner.login,data.full_name,data.clone_url,data.description,data.visibility,data.language)}><AiOutlineStar color={esFavorito(data) ? "gold" : "black"}/></button>
+                      
+                    </div>
+                   <hr />
                   </div>
                   
                   </>
@@ -100,7 +130,7 @@ export default function HomeProfile() {
                   
                 ))
               ) : (
-                <p className="text-white absolute top-64 md:flex text-[20px] text-center">Usuario no encontrado, ingrese un usuario válido.</p>
+                <p className="text-gray-600 absolute top-64  md:left-44 md:top-36 md:flex text-[20px] text-center lg:left-[35%]">Usuario no encontrado, ingrese un usuario válido.</p>
               )}
             </div>
           ) : (
@@ -115,7 +145,7 @@ export default function HomeProfile() {
                 alt=""
                 className="md:w-full md:h-full w-[200px] mt-2 rounded-[50%] "
               />
-              <p className="text-white border-b border-b-slate-200 ">{datausergithub.name}</p>
+              <p className="text-white border-b  border-b-slate-200 ">{datausergithub.name}</p>
               </div>
               <div className="w-full flex flex-wrap  justify-center md:w-[79%] md:gap-2">
                 {datarepositories.map((data, key) => (
@@ -139,7 +169,32 @@ export default function HomeProfile() {
           )}
 
         </div>
+       
+        <footer className=" hidden w-full md:items-end lg:flex justify-around items-start bg-white py-2">
+          <hr />
+          <div className="flex gap-1  text-xs">
+            <img src={LogoGithub} alt="LogoHithub" className="w-4" />
+            <p className="text-gray-600">© 2023 GitHub, Inc.</p>
+          </div>
+          <ul className="flex gap-6 text-[13px]  items-center m-0  text-blue-900 ">
+            <li className="hover:border-b hover:border-blue-800">Terms</li>
+            <li className="hover:border-b hover:border-blue-800">Privacy</li>
+            <li className="hover:border-b hover:border-blue-800">Security</li>
+            <li className="hover:border-b hover:border-blue-800">Status</li>
+            <li className="hover:border-b hover:border-blue-800">Docs</li>
+            <li className="hover:border-b hover:border-blue-800">Contact GitHub</li>
+            <li className="hover:border-b hover:border-blue-800">Pricing</li>
+            <li className="hover:border-b hover:border-blue-800">API</li>
+            <li className="hover:border-b hover:border-blue-800">Training</li>
+            <li className="hover:border-b hover:border-blue-800">Blog</li>
+            <li className="hover:border-b hover:border-blue-800">About</li>
+          </ul>
+          <ul>
+
+          </ul>
+        </footer>
       </main>
+      
     </>
   );
 }
